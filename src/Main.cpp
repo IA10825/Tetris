@@ -8,15 +8,11 @@ int main()
 	auto window = sf::RenderWindow(sf::VideoMode({ 320u, 220u }), "Tetris", sf::Style::Default, sf::State::Windowed);
 	window.setFramerateLimit(144);
 
-
-	TextureManager manager("res");
-
-	Button button1({ 10.f, 10.f }, { 55.f, 32.f }, manager.get("play"), 1);
-	Button button2({ 10.f, 60.f }, { 55.f, 32.f }, manager.get("reset"), 1);
-	Button button3({ 10.f, 110.f }, { 55.f, 32.f }, manager.get("volume_off"), 1);
-	Button button4({ 10.f, 160.f }, { 55.f, 32.f }, manager.get("exit"), 1);
+	Button button1({ 10.f, 10.f }, { 55.f, 32.f }, TextureManager::getInstance().get("play"), 1);
+	Button button2({ 10.f, 60.f }, { 55.f, 32.f }, TextureManager::getInstance().get("reset"), 1);
+	Button button3({ 10.f, 110.f }, { 55.f, 32.f }, TextureManager::getInstance().get("volume_off"), 1);
+	Button button4({ 10.f, 160.f }, { 55.f, 32.f }, TextureManager::getInstance().get("exit"), 1);
 	bool isSoundOn = true;
-
 
 	while (window.isOpen())
 	{

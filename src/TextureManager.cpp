@@ -1,10 +1,12 @@
 #include "TextureManager.h"
 #include <iostream>
 
-TextureManager::TextureManager(std::string adress) {
+TextureManager::TextureManager() {
 	namespace fs = std::filesystem;
 
-	for (const auto& entry : fs::directory_iterator(adress)) {
+	std::cout << "sdsd";
+
+	for (const auto& entry : fs::directory_iterator("res")) {
 		if (!(
 			entry.path().extension().string() == ".png" ||
 			entry.path().extension().string() == ".jpg" ||
