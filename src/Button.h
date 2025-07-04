@@ -3,16 +3,15 @@
 
 class Button : public sf::Drawable, public sf::Transformable {
 public:
-	Button(sf::Vector2f, sf::Vector2f, sf::Texture, unsigned = 1);
+	Button(sf::Vector2f, sf::Vector2f, sf::Texture&, unsigned = 1);
 	bool isHovered(sf::Window& window);
 	bool isPressed(sf::Window& window);
 	bool isJustPressed(sf::Window& window);
 	void setSize(sf::Vector2f);
-	void setTexture(sf::Texture);
+	void setTexture(sf::Texture*);
 	void update(sf::Window& window);
 private:
 	sf::Sprite sprite;
-	sf::Texture texture;
 	sf::RectangleShape outline[4];
 	sf::RectangleShape body;
 

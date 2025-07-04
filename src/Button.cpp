@@ -1,8 +1,7 @@
 #include "Button.h"
 #include <iostream>
 
-Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Texture texture, unsigned outlineThickness) : rect(position, size), sprite(texture), body(size) {
-	this->texture = texture;
+Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Texture& texture, unsigned outlineThickness) : rect(position, size), sprite(texture), body(size) {
 	this->wasPressedLastFrame = false;
 	this->outlineThickness = outlineThickness;
 
@@ -12,7 +11,6 @@ Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Texture texture, un
 	outline[3].setFillColor(sf::Color::White);
 
 	setPosition(position);
-	sprite.setTexture(this->texture);
 }
 
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -38,7 +36,7 @@ void Button::update(sf::Window& window) {
 		body.setFillColor(sf::Color(35, 35, 35, 255));
 	}
 	else {
-		body.setFillColor(sf::Color(25, 25, 25, 255));
+		body.setFillColor(sf::Color(0, 0, 0, 255));
 	}
 
 	outline[0].setPosition({ -static_cast<int>(outlineThickness) * 1.f, -static_cast<int>(outlineThickness) * 1.f });
@@ -53,7 +51,6 @@ void Button::update(sf::Window& window) {
 	outline[3].setPosition({ -static_cast<int>(outlineThickness) * 1.f, 0 });
 	outline[3].setSize({ outlineThickness * 1.f, rect.size.y + outlineThickness });
 
-	sprite.setTexture(texture);
 	wasPressedLastFrame = isPressed(window);
 }
 
@@ -73,6 +70,6 @@ void Button::setSize(sf::Vector2f size) {
 	rect.size = size;
 }
 
-void Button::setTexture(sf::Texture texture) {
-	this->texture = texture;
+void Button::setTexture(sf::Texture* texture) {
+	sprite.setTexture(*texture);
 }

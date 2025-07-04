@@ -12,7 +12,7 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(main src/main.cpp "src/Button.cpp" "src/Button.h")
+add_executable(main src/main.cpp "src/Button.cpp" "src/Button.h" "src/TextureManager.h" "src/TextureManager.cpp")
 
 add_custom_command(
     TARGET main PRE_BUILD
