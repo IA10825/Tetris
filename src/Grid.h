@@ -2,10 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include <optional>
 #include <vector>
-#include <array>
 #include "Figure.h"
+#include "Box.h"
 
-class Grid : public sf::Drawable, public sf::Transformable {
+class Grid : public Box {
 public:
 	Grid(sf::Vector2u);
 	void update();
