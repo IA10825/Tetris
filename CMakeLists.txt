@@ -12,9 +12,16 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
+add_executable(main src/main.cpp "src/Button.cpp" "src/Button.h")
 
-file(COPY res DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/bin")
+add_custom_command(
+    TARGET main PRE_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/res
+        ${CMAKE_BINARY_DIR}/bin/res
+    COMMENT "Copying resources..."
+)
 
-add_executable(main src/main.cpp)
+
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
