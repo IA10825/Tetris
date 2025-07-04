@@ -3,9 +3,6 @@
 
 TextureManager::TextureManager() {
 	namespace fs = std::filesystem;
-
-	std::cout << "sdsd";
-
 	for (const auto& entry : fs::directory_iterator("res")) {
 		if (!(
 			entry.path().extension().string() == ".png" ||

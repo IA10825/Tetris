@@ -2,10 +2,11 @@
 #include <iostream>
 #include "Button.h"
 #include "TextureManager.h"
+#include "Grid.h"
 
 int main()
 {
-	auto window = sf::RenderWindow(sf::VideoMode({ 320u, 220u }), "Tetris", sf::Style::Default, sf::State::Windowed);
+	auto window = sf::RenderWindow(sf::VideoMode({ 385u, 620u }), "Tetris", sf::Style::Default, sf::State::Windowed);
 	window.setFramerateLimit(144);
 
 	Button button1({ 10.f, 10.f }, { 55.f, 32.f }, TextureManager::getInstance().get("play"), 1);
@@ -13,6 +14,9 @@ int main()
 	Button button3({ 10.f, 110.f }, { 55.f, 32.f }, TextureManager::getInstance().get("volume_off"), 1);
 	Button button4({ 10.f, 160.f }, { 55.f, 32.f }, TextureManager::getInstance().get("exit"), 1);
 	bool isSoundOn = true;
+
+	Grid grid({ 10, 20 });
+	grid.setPosition({75, 10});
 
 	while (window.isOpen())
 	{
@@ -36,8 +40,10 @@ int main()
 		button2.update(window);
 		button3.update(window);
 		button4.update(window);
+		grid.update();
 
 		window.clear();
+		window.draw(grid);
 		window.draw(button1);
 		window.draw(button2);
 		window.draw(button3);
