@@ -8,11 +8,11 @@ int main()
 	window.setFramerateLimit(144);
 
 	sf::Texture a;
-	if (!a.loadFromFile("res/volume_on.png")) {
+	if (!a.loadFromFile("res/block_4.png")) {
 		std::cout << "texture a may not be loaded";
 	}
 	sf::Texture b;
-	if (!b.loadFromFile("res/volume_off.png")) {
+	if (!b.loadFromFile("res/block_1.png")) {
 		std::cout << "texture b may not be loaded";
 	}
 	Button button({ 10.f, 10.f }, { 64.f, 64.f }, a,1);
