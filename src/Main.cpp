@@ -16,6 +16,7 @@ int main()
 
 	Grid grid({ 10, 20 });
 	grid.setPosition({75, 10});
+	grid.update();
 
 	while (window.isOpen())
 	{
@@ -39,7 +40,6 @@ int main()
 		button2.update(window);
 		button3.update(window);
 		button4.update(window);
-		grid.update();
 
 		window.clear();
 		window.draw(grid);
@@ -47,6 +47,7 @@ int main()
 		window.draw(button2);
 		window.draw(button3);
 		window.draw(button4);
+
 		window.display();
 	}
 }

@@ -11,9 +11,9 @@ public:
 	void update();
 	struct Cell
 	{
-		Cell(Figure type);
-		const Figure type;
-		bool isFixed;
+		Cell(Figure::Type type);
+		const Figure::Type type;
+		bool isActive;
 	};
 private:
 	const sf::Vector2u size;

@@ -1,4 +1,8 @@
 #pragma once
-enum Figure{
-	J, I, O, L, Z, T, S
+
+class Figure {
+public:
+	enum Type {
+		J, I, O, L, Z, T, S
+	};
 };
