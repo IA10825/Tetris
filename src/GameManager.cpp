@@ -9,6 +9,8 @@ GameManager::GameManager() : size(380, 200) {
 
 	grid = new Grid({10,20});
 	size.y = grid->getSize().y;
+
+	grid->step();
 }
 
 void GameManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {

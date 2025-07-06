@@ -4,7 +4,6 @@
 
 Grid::Grid(sf::Vector2u size) : size(size), cells(size.x* size.y), Box({0,0}, {size.x*1.f, size.y * 1.f }) {
 	sprites.reserve(size.x * size.y);
-
 	for (int j = 0; j < size.y; j++) {
 		for (int i = 0; i < size.x; i++) {
 			sf::Sprite sprite(TextureManager::get("block_void"));
@@ -16,7 +15,7 @@ Grid::Grid(sf::Vector2u size) : size(size), cells(size.x* size.y), Box({0,0}, {s
 
 	for (int i = 0; i < size.x * size.y; i++) {
 		if (i < 44) {
-			cells[i].emplace(static_cast<Figure::Type>(rand() % 7));
+			cells[i].type = static_cast<Figure::Type>(rand() % 8);
 		}
 	}
 }
@@ -34,8 +33,7 @@ void Grid::update() {
 	Box::update();
 
 	for (int i = 0; i < size.x * size.y; i++) {
-		if (cells[i]) {
-			switch (cells[i].value().type) {
+			switch (cells[i].type) {
 			case Figure::Type::I:
 				sprites[i].setTexture(TextureManager::get("block_6"));
 				break;
@@ -57,13 +55,11 @@ void Grid::update() {
 			case Figure::Type::Z:
 				sprites[i].setTexture(TextureManager::get("block_4"));
 				break;
+			default:
+				sprites[i].setTexture(TextureManager::get("block_void"));
 			}
 		}
-		else {
-			sprites[i].setTexture(TextureManager::get("block_void"));
-		}
 	}
-}
 
 sf::Vector2u Grid::getFieldSize() {
 	return size;
@@ -73,7 +69,37 @@ sf::Vector2u Grid::getSize() {
 	return { size.x * 15 * 2,size.y * 15 * 2 };
 }
 
+Grid::Cell::Cell() : type(Figure::Type::EMPTY) {
+	isActive = true;
+}
+
 Grid::Cell::Cell(Figure::Type type) : type(type) {
 	isActive = true;
+}
+
+bool Grid::has(int x, int y) const {
+	if (y < 0 || y >= size.y || x < 0 || x >= size.x) return false;
+	return true;
+}
+
+void Grid::swap(Cell& a, Cell& b) {
+	Cell buffer = a;
+	a = b;
+	b = buffer;
+}
+
+Grid::Cell& Grid::at(unsigned x, unsigned y) {
+	if (x >= size.x || y >= size.y) throw std::out_of_range("Grid::at() - coordinates out of range");
+	return (cells[size.x * y + x]);
+}
+
+void Grid::step() {
+	for (int j = size.y-1; j >= 0; j--) {
+		for (int i = 0; i < size.x; i++) {
+			if (at(i, j).isActive && has(i, j + 1)) {
+				swap(at(i, j), at(i, j + 1));
+			}
+		}
+	}
 }
 

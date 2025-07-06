@@ -3,6 +3,6 @@
 class Figure {
 public:
 	enum Type {
-		J, I, O, L, Z, T, S
+		EMPTY, J, I, O, L, Z, T, S
 	};
 };
