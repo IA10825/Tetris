@@ -1,4 +1,5 @@
 #include "Box.h"
+#include <iostream>
 
 Box::Box(sf::Vector2f position, sf::Vector2f size) : Rect(position, size), body(size) {
 	setPosition(position);

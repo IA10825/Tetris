@@ -9,7 +9,7 @@ Grid::Grid(sf::Vector2u size) : size(size), cells(size.x* size.y), Box({0,0}, {s
 		for (int i = 0; i < size.x; i++) {
 			sf::Sprite sprite(TextureManager::getInstance().get("block_void"));
 			sprite.setPosition({ i * 30.f, j * 30.f });
-			sprite.setScale({ 1.9f,1.9f });
+			sprite.setScale({ 2.f,2.f });
 			sprites.push_back(sprite);
 		}
 	}
@@ -65,6 +65,15 @@ void Grid::update() {
 	}
 }
 
+sf::Vector2u Grid::getFieldSize() {
+	return size;
+}
+
+sf::Vector2u Grid::getSize() {
+	return { size.x * 15 * 2,size.y * 15 * 2 };
+}
+
 Grid::Cell::Cell(Figure::Type type) : type(type) {
 	isActive = true;
 }
+

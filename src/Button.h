@@ -13,8 +13,6 @@ public:
 	void update(sf::Window& window);
 private:
 	sf::Sprite sprite;
-	sf::RectangleShape outline[4];
-
 	bool wasPressedLastFrame;
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

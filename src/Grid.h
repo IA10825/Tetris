@@ -15,6 +15,8 @@ public:
 		const Figure::Type type;
 		bool isActive;
 	};
+	sf::Vector2u getFieldSize();
+	sf::Vector2u getSize();
 private:
 	const sf::Vector2u size;
 	std::vector<std::optional<Cell>> cells;
