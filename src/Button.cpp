@@ -14,16 +14,16 @@ void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 void Button::update(sf::Window& window) {
 	Box::update();
-	sprite.setPosition({ size.x / 2 - sprite.getTexture().getSize().x / 2,size.y / 2 - sprite.getTexture().getSize().y / 2 });
+	sprite.setPosition({ getSize().x / 2 - sprite.getTexture().getSize().x / 2,getSize().y / 2 - sprite.getTexture().getSize().y / 2 });
 
 	if (isPressed(window)) {
-		body.setFillColor(sf::Color(75, 75, 75, 255));
+		setFillColor(sf::Color(75, 75, 75, 255));
 	}
 	else if (isHovered(window)) {
-		body.setFillColor(sf::Color(35, 35, 35, 255));
+		setFillColor(sf::Color(35, 35, 35, 255));
 	}
 	else {
-		body.setFillColor(sf::Color(0, 0, 0, 255));
+		setFillColor(sf::Color(0, 0, 0, 255));
 	}
 
 	wasPressedLastFrame = isPressed(window);

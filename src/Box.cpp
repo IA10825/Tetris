@@ -1,38 +1,44 @@
 #include "Box.h"
 #include <iostream>
 
-Box::Box(sf::Vector2f position, sf::Vector2f size) : Rect(position, size), body(size) {
+Box::Box(sf::Vector2f position, sf::Vector2f size) : Rect(position, size), body(size), outlineThickness(2) {
 	setPosition(position);
-	for (int i = 0; i < 4; i++) {
-		outline[i].setFillColor(sf::Color::White);
-	}
+	outline.setFillColor(sf::Color::White);
 }
 
 void Box::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	states.transform *= getTransform();
+	target.draw(outline, states);
 	target.draw(body, states);
-	for (int i = 0; i < 4; i++) {
-		target.draw(outline[i], states);
-	}
 }
 
 void Box::update() {
 	position = getPosition();
+	outline.setPosition({ -static_cast<float>(outlineThickness), -static_cast<float>(outlineThickness) });
+	outline.setSize({ size.x + outlineThickness * 2,size.y + outlineThickness * 2 });
 	body.setSize(size);
-
-	outline[0].setPosition({0,-1});
-	outline[0].setSize({ size.x+1,1 });
-
-	outline[1].setPosition({ size.x,0 });
-	outline[1].setSize({ 1,size.y+1 });
-
-	outline[2].setPosition({ -1,size.y });
-	outline[2].setSize({ size.x+1,1 });
-
-	outline[3].setPosition({ -1,-1 });
-	outline[3].setSize({ 1,size.y+1 });
 }
 
 void Box::setSize(sf::Vector2f size) {
 	this->size = size;
+}
+
+sf::Vector2f Box::getSize() {
+	return size;
+}
+
+void Box::setOutlineThickness(unsigned thickness) {
+	outlineThickness = thickness;
+}
+
+void Box::setFillColor(sf::Color color) {
+	body.setFillColor(color);
+}
+
+void Box::setOutlineColor(sf::Color color) {
+	outline.setFillColor(color);
+}
+
+bool Box::contains(sf::Vector2f coordinate) {
+	return Rect::contains(coordinate);
 }

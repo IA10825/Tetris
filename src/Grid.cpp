@@ -30,7 +30,7 @@ void Grid::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 void Grid::update() {
-	Box::size = { size.x*30.f, size.y*30.f };
+	setSize({ size.x * 30.f, size.y * 30.f });
 	Box::update();
 
 	for (int i = 0; i < size.x * size.y; i++) {
