@@ -5,12 +5,12 @@
 #include <vector>
 
 
-class GameManager : public sf::Drawable, private sf::Transformable {
+class GameManager : public sf::Drawable {
 public:
 	GameManager();
 	void update(sf::Window&);
 
-	const sf::Vector2u size{200, 200};
+	sf::Vector2u size;
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	std::vector<Button> buttons;

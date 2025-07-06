@@ -4,7 +4,7 @@
 
 int main()
 {
-	auto window = sf::RenderWindow(sf::VideoMode({ 385u, 620u }), "Tetris", sf::Style::Default, sf::State::Windowed);
+	auto window = sf::RenderWindow(sf::VideoMode({ 540u, 640u }), "Tetris", sf::Style::Default, sf::State::Windowed);
 	window.setFramerateLimit(144);
 
 	GameManager manager;
