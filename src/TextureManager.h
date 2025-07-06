@@ -5,11 +5,7 @@
 
 class TextureManager {
 public:
-	static TextureManager& getInstance() {
-		static TextureManager instance;
-		return instance;
-	}
-	sf::Texture& get(std::string name);
+	static sf::Texture& get(std::string name);
 private:
 	TextureManager();
 	std::map<std::string, sf::Texture*> textures;

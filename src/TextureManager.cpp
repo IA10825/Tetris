@@ -7,29 +7,30 @@ TextureManager::TextureManager() {
 		if (!(
 			entry.path().extension().string() == ".png" ||
 			entry.path().extension().string() == ".jpg" ||
-			entry.path().extension().string() == ".jpeg"
+			entry.path().extension().string() == ".gif"
 			)) {
-			std::cerr << typeid(*this).name() << ": Texture " << entry.path() << " - invalid file extension";
+			std::cerr << typeid(*this).name() << ": Texture " << entry.path() << " - invalid file extension" << std::endl;
 			continue;
 		}
-		sf::Texture* p = new sf::Texture;
+		sf::Texture* pTexture = new sf::Texture;
 		if (
-			!(*p).loadFromFile(entry.path())
+			!(*pTexture).loadFromFile(entry.path())
 			) {
-			std::cerr << typeid(*this).name() << ": Texture " << entry.path() << " could not be loaded";
+			std::cerr << typeid(*this).name() << ": Texture " << entry.path() << " could not be loaded" << std::endl;
 			continue;
 		}
-		textures[entry.path().filename().stem().string()] = p;
+		textures[entry.path().filename().stem().string()] = pTexture;
 	}
 	textures["blank"] = new sf::Texture;
 }
 
 sf::Texture& TextureManager::get(std::string name) {
-	if (textures[name]) {
-		return *textures[name];
+	static TextureManager instance;
+	if (instance.textures[name]) {
+		return *(instance.textures[name]);
 	}
 	else {
-		std::cerr << typeid(*this).name() << ": Texture " << name << " was not found";
-		return *textures["blank"];
+		std::cerr << typeid(instance).name() << ": Texture " << name << " was not found";
+		return *(instance.textures["blank"]);
 	}
 }
