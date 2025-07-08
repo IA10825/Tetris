@@ -17,13 +17,16 @@ void Button::update(sf::Window& window) {
 	sprite.setPosition({ getSize().x / 2 - sprite.getTexture().getSize().x / 2,getSize().y / 2 - sprite.getTexture().getSize().y / 2 });
 
 	if (isPressed(window)) {
-		setFillColor(sf::Color(75, 75, 75, 255));
+		setFillColor(sf::Color(255, 255, 255, 255));
+		sprite.setColor(sf::Color::Black);
 	}
 	else if (isHovered(window)) {
 		setFillColor(sf::Color(35, 35, 35, 255));
+		sprite.setColor(sf::Color::White);
 	}
 	else {
 		setFillColor(sf::Color(0, 0, 0, 255));
+		sprite.setColor(sf::Color::White);
 	}
 
 	wasPressedLastFrame = isPressed(window);

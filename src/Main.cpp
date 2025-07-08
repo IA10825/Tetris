@@ -1,11 +1,15 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include "GameManager.h"
 
 int main()
 {
 	auto window = sf::RenderWindow(sf::VideoMode({ 540u, 640u }), "Tetris", sf::Style::Default, sf::State::Windowed);
-	window.setFramerateLimit(144);
+	window.setFramerateLimit(60);
+
+	srand(time(0));
 
 	GameManager manager;
 
