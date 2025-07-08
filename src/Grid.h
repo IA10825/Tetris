@@ -19,6 +19,7 @@ public:
 	};
 	sf::Vector2u getFieldSize();
 	sf::Vector2u getSize();
+	bool paste(const Figure& figure, unsigned rotation = 0);
 private:
 	const sf::Vector2u size;
 	std::vector<Cell> cells;

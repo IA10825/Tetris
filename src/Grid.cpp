@@ -1,6 +1,7 @@
 #include "Grid.h"
 #include "TextureManager.h"
 #include <iostream>
+#include <bitset>
 
 Grid::Grid(sf::Vector2u size) : size(size), cells(size.x* size.y), Box({0,0}, {size.x*1.f, size.y * 1.f }) {
 	sprites.reserve(size.x * size.y);
@@ -103,3 +104,22 @@ void Grid::step() {
 	}
 }
 
+bool Grid::paste(const Figure& figure, unsigned r) {
+	if (r > 3) throw std::out_of_range("Figure rotation out of range");
+	std::bitset<64> mask;
+	for (int i = 0; i < 64; i++) {
+		mask.set(i, (i / 16) == r);
+	}
+
+	std::bitset<16> frame(((figure.blueprint & mask) >> 16 * r).to_ulong());
+
+	for (int i = 0; i < 16; i++) {
+		if (at(i % 4, i / 4).type != Figure::EMPTY) return false;
+	}
+
+	for (int i = 0; i < 16; i++) {
+		if (frame[i]) at(i % 4, i / 4).type = Figure::L;
+	}
+
+	return true;
+}

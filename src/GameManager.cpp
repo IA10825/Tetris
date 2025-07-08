@@ -7,10 +7,15 @@ GameManager::GameManager() : size(380, 200) {
 	buttons.emplace_back(sf::Vector2f{ 0,0 }, sf::Vector2f{ 64,32 }, TextureManager::get("volume_on"));
 	buttons.emplace_back(sf::Vector2f{ 0,0 }, sf::Vector2f{ 64,32 }, TextureManager::get("exit"));
 
+	Figure figura(0b0000'1111'0000'0000'0100'0100'0100'0100'0000'0000'1111'0000'0010'0010'0010'0010);
+
 	grid = new Grid({10,20});
 	size.y = grid->getSize().y;
-
 	grid->step();
+	grid->step();
+	grid->step();
+	grid->step();
+	grid->paste(figura, 3);
 }
 
 void GameManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
