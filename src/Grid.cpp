@@ -3,7 +3,7 @@
 #include <iostream>
 #include <bitset>
 
-Grid::Grid(sf::Vector2u size) : size(size), cells(size.x* size.y), Box({0,0}, {size.x*1.f, size.y * 1.f }) {
+Grid::Grid(sf::Vector2u size) : size(size), cells(size.x* size.y), Box({ 0,0 }, { size.x * 1.f, size.y * 1.f }) {
 	sprites.reserve(size.x * size.y);
 	for (int j = 0; j < size.y; j++) {
 		for (int i = 0; i < size.x; i++) {
@@ -34,33 +34,36 @@ void Grid::update() {
 	Box::update();
 
 	for (int i = 0; i < size.x * size.y; i++) {
-			switch (cells[i].type) {
-			case Figure::Type::I:
-				sprites[i].setTexture(TextureManager::get("block_6"));
-				break;
-			case Figure::Type::J:
-				sprites[i].setTexture(TextureManager::get("block_5"));
-				break;
-			case Figure::Type::L:
-				sprites[i].setTexture(TextureManager::get("block_2"));
-				break;
-			case Figure::Type::O:
-				sprites[i].setTexture(TextureManager::get("block_3"));
-				break;
-			case Figure::Type::S:
-				sprites[i].setTexture(TextureManager::get("block_1"));
-				break;
-			case Figure::Type::T:
-				sprites[i].setTexture(TextureManager::get("block_7"));
-				break;
-			case Figure::Type::Z:
-				sprites[i].setTexture(TextureManager::get("block_4"));
-				break;
-			default:
-				sprites[i].setTexture(TextureManager::get("block_void"));
-			}
+		switch (cells[i].type) {
+		case Figure::Type::I:
+			sprites[i].setTexture(TextureManager::get("block_6"));
+			break;
+		case Figure::Type::J:
+			sprites[i].setTexture(TextureManager::get("block_5"));
+			break;
+		case Figure::Type::L:
+			sprites[i].setTexture(TextureManager::get("block_2"));
+			break;
+		case Figure::Type::O:
+			sprites[i].setTexture(TextureManager::get("block_3"));
+			break;
+		case Figure::Type::S:
+			sprites[i].setTexture(TextureManager::get("block_1"));
+			break;
+		case Figure::Type::T:
+			sprites[i].setTexture(TextureManager::get("block_7"));
+			break;
+		case Figure::Type::Z:
+			sprites[i].setTexture(TextureManager::get("block_4"));
+			break;
+		case Figure::Type::EMPTY:
+			sprites[i].setTexture(TextureManager::get("block_void"));
+			break;
+		default:
+			sprites[i].setTexture(TextureManager::get("abort"));
 		}
 	}
+}
 
 sf::Vector2u Grid::getFieldSize() {
 	return size;
@@ -80,7 +83,7 @@ Grid::Cell::Cell(Figure::Type type) : type(type) {
 
 bool Grid::has(int x, int y) const {
 	if (y < 0 || y >= size.y || x < 0 || x >= size.x) return false;
-	return true;
+	return true; 
 }
 
 void Grid::swap(Cell& a, Cell& b) {
@@ -90,12 +93,12 @@ void Grid::swap(Cell& a, Cell& b) {
 }
 
 Grid::Cell& Grid::at(unsigned x, unsigned y) {
-	if (x >= size.x || y >= size.y) throw std::out_of_range("Grid::at() - coordinates out of range");
+	if (x >= size.x || y >= size.y) throw std::out_of_range("Coordinates out of range");
 	return (cells[size.x * y + x]);
 }
 
 void Grid::step() {
-	for (int j = size.y-1; j >= 0; j--) {
+	for (int j = size.y - 1; j >= 0; j--) {
 		for (int i = 0; i < size.x; i++) {
 			if (at(i, j).isActive && has(i, j + 1)) {
 				swap(at(i, j), at(i, j + 1));
@@ -104,7 +107,7 @@ void Grid::step() {
 	}
 }
 
-bool Grid::paste(const Figure& figure, unsigned r) {
+bool Grid::paste(const Figure& figure, unsigned r, sf::Vector2u position) {
 	if (r > 3) throw std::out_of_range("Figure rotation out of range");
 	std::bitset<64> mask;
 	for (int i = 0; i < 64; i++) {
@@ -114,12 +117,34 @@ bool Grid::paste(const Figure& figure, unsigned r) {
 	std::bitset<16> frame(((figure.blueprint & mask) >> 16 * r).to_ulong());
 
 	for (int i = 0; i < 16; i++) {
-		if (at(i % 4, i / 4).type != Figure::EMPTY) return false;
+		try {
+			if (at(i % 4 + position.x, i / 4 + position.y).type != Figure::EMPTY) return false;
+		}
+		catch (std::out_of_range) {
+			return false;
+		}
 	}
 
 	for (int i = 0; i < 16; i++) {
-		if (frame[i]) at(i % 4, i / 4).type = Figure::L;
+		if (frame[i]) at(i % 4 + position.x, i / 4 + position.y).type = Figure::L;
 	}
 
+	figurePos = position;
+	figureRot = r;
 	return true;
+}
+
+bool Grid::rotate(const Figure& figure) {
+	figureRot++;
+	if (figureRot >= 3) figureRot = 0;
+
+	for (int i = 0; i < 16; i++) {
+		if (
+			cells[figurePos.y * size.x + (i / 4) * size.x + figurePos.x + i % 4].type != Figure::EMPTY
+			) {
+			cells[figurePos.y * size.x + (i/4)*size.x + figurePos.x + i % 4].type = Figure::EMPTY;
+		}
+	}
+
+	return paste(figure, figureRot, figurePos);
 }
