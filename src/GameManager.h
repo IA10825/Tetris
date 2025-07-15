@@ -3,6 +3,7 @@
 #include "Button.h"
 #include "Grid.h"
 #include <vector>
+#include "Keyboard.h"
 
 
 class GameManager : public sf::Drawable {
@@ -15,6 +16,7 @@ private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	std::vector<Button> buttons;
 	Grid* grid;
+	Keyboard* keyboard;
 
 	bool isPaused = false;
 };
