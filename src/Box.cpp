@@ -4,6 +4,7 @@
 Box::Box(sf::Vector2f position, sf::Vector2f size) : Rect(position, size), body(size), outlineThickness(2) {
 	setPosition(position);
 	outline.setFillColor(sf::Color::White);
+	body.setFillColor(sf::Color::Black);
 }
 
 void Box::draw(sf::RenderTarget& target, sf::RenderStates states) const {
