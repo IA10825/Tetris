@@ -2,7 +2,7 @@
 #include "TextureManager.h"
 #include <iostream>
 
-Figure figures[7]{
+Figure* figures = new Figure[7]{
 	{0b0000'1111'0000'0000'0010'0010'0010'0010'0000'0000'1111'0000'0100'0100'0100'0100, Figure::Type::I},
 	{0b0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000, Figure::Type::L},
 	{0b0010'1110'0000'0000'0100'0100'0110'0000'0000'1110'1000'0000'1100'0100'0100'0000, Figure::Type::J},
@@ -37,7 +37,7 @@ void GameManager::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 
 void GameManager::update(sf::Window& window) {
 	if (keyboard->isKeyJustPressed(sf::Keyboard::Key::R)) {
-		grid->rotate(figures[2]);
+		grid->rotate();
 	}
 
 	if (buttons[3].isJustPressed(window)) window.close();

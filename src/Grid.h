@@ -13,7 +13,7 @@ public:
 	sf::Vector2u getFieldSize();
 	sf::Vector2u getSize();
 	bool paste(const Figure& figure, unsigned rotation = 0, sf::Vector2u position = sf::Vector2u(0, 0));
-	bool rotate(const Figure& figure);
+	bool rotate();
 
 	struct Cell
 	{
@@ -31,6 +31,8 @@ private:
 	const sf::Vector2u size;
 	std::vector<Cell> cells;
 	std::vector<sf::Sprite> sprites;
+
 	sf::Vector2u figurePos;
 	unsigned figureRot = 0;
+	const Figure* currFigure;
 };

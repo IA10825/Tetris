@@ -131,10 +131,13 @@ bool Grid::paste(const Figure& figure, unsigned r, sf::Vector2u position) {
 
 	figurePos = position;
 	figureRot = r;
+	currFigure = &figure;
 	return true;
 }
 
-bool Grid::rotate(const Figure& figure) {
+bool Grid::rotate() {
+	if (!currFigure) return false;
+
 	figureRot++;
 	if (figureRot > 3) figureRot = 0;
 
@@ -145,6 +148,5 @@ bool Grid::rotate(const Figure& figure) {
 			cells[figurePos.y * size.x + (i/4)*size.x + figurePos.x + i % 4].type = Figure::EMPTY;
 		}
 	}
-
-	return paste(figure, figureRot, figurePos);
+	return paste(*currFigure, figureRot, figurePos);
 }
