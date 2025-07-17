@@ -3,12 +3,12 @@
 #include <iostream>
 #include <bitset>
 
-Grid::Grid(sf::Vector2u size) : size(size), cells(size.x* size.y), Box({ 0,0 }, { size.x * 1.f, size.y * 1.f }) {
+Grid::Grid(sf::Vector2u size) : size(size), cells(size.x* size.y), Box({ 0,0 }, { 0, 0 }) {
 	sprites.reserve(size.x * size.y);
 	for (int j = 0; j < size.y; j++) {
 		for (int i = 0; i < size.x; i++) {
 			sf::Sprite sprite(TextureManager::get("block_void"));
-			sprite.setPosition({ i * 30.f, j * 30.f });
+			sprite.setPosition({ i * 30.f+2, j * 30.f+2 });
 			sprite.setScale({ 2.f,2.f });
 			sprites.push_back(sprite);
 		}
@@ -30,7 +30,7 @@ void Grid::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 void Grid::update() {
-	setSize({ size.x * 30.f, size.y * 30.f });
+	setSize({ size.x * 30.f+4, size.y * 30.f+4 });
 	Box::update();
 
 	for (int i = 0; i < size.x * size.y; i++) {
@@ -110,7 +110,7 @@ void Grid::step() {
 bool Grid::paste(const Figure& figure, unsigned r, sf::Vector2u position) {
 	if (r > 3) throw std::out_of_range("Figure rotation out of range");
 	std::bitset<64> mask;
-	for (int i = 0; i < 64; i++) {
+	for (int i = 0; i<64; i++) {
 		mask.set(i, (i / 16) == r);
 	}
 
@@ -126,7 +126,7 @@ bool Grid::paste(const Figure& figure, unsigned r, sf::Vector2u position) {
 	}
 
 	for (int i = 0; i < 16; i++) {
-		if (frame[i]) at(i % 4 + position.x, i / 4 + position.y).type = Figure::L;
+		if (frame[15-i]) at((15-i) % 4 + position.x, i / 4 + position.y).type = figure.type;
 	}
 
 	figurePos = position;
@@ -136,7 +136,7 @@ bool Grid::paste(const Figure& figure, unsigned r, sf::Vector2u position) {
 
 bool Grid::rotate(const Figure& figure) {
 	figureRot++;
-	if (figureRot >= 3) figureRot = 0;
+	if (figureRot > 3) figureRot = 0;
 
 	for (int i = 0; i < 16; i++) {
 		if (

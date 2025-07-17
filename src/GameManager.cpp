@@ -2,7 +2,15 @@
 #include "TextureManager.h"
 #include <iostream>
 
-Figure figura(0b0101101011001101101001011111000000110111100010010110001111011101);
+Figure figures[7]{
+	{0b0000'1111'0000'0000'0010'0010'0010'0010'0000'0000'1111'0000'0100'0100'0100'0100, Figure::Type::I},
+	{0b0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000, Figure::Type::L},
+	{0b0010'1110'0000'0000'0100'0100'0110'0000'0000'1110'1000'0000'1100'0100'0100'0000, Figure::Type::J},
+	{0b0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000, Figure::Type::O},
+	{0b0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000, Figure::Type::S},
+	{0b0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000, Figure::Type::T},
+	{0b0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000'0000, Figure::Type::Z}
+};
 
 GameManager::GameManager() : size(380, 200) {
 	buttons.emplace_back(sf::Vector2f{ 0,0 }, sf::Vector2f{ 64,32 }, TextureManager::get("play"));
@@ -17,8 +25,7 @@ GameManager::GameManager() : size(380, 200) {
 	grid->step();
 	grid->step();
 	grid->step();
-	grid->paste(figura, 3, sf::Vector2u{3,0});
-	grid->rotate(figura);
+	grid->paste(figures[2], 3, sf::Vector2u{3,0});
 }
 
 void GameManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -30,7 +37,7 @@ void GameManager::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 
 void GameManager::update(sf::Window& window) {
 	if (keyboard->isKeyJustPressed(sf::Keyboard::Key::R)) {
-		grid->rotate(figura);
+		grid->rotate(figures[2]);
 	}
 
 	if (buttons[3].isJustPressed(window)) window.close();
