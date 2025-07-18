@@ -65,11 +65,11 @@ void Grid::update() {
 	}
 }
 
-sf::Vector2u Grid::getFieldSize() {
+sf::Vector2u Grid::getFieldSize() const {
 	return size;
 }
 
-sf::Vector2u Grid::getSize() {
+sf::Vector2u Grid::getSize() const {
 	return { size.x * 15 * 2,size.y * 15 * 2 };
 }
 
@@ -92,41 +92,26 @@ void Grid::swap(Cell& a, Cell& b) {
 	b = buffer;
 }
 
-Grid::Cell& Grid::at(unsigned x, unsigned y) {
-	if (x >= size.x || y >= size.y) throw std::out_of_range("Coordinates out of range");
-	return (cells[size.x * y + x]);
+Grid::Cell* Grid::at(unsigned x, unsigned y) {
+	if (x >= size.x || y >= size.y) return nullptr;
+	return &cells[size.x * y + x];
 }
 
 void Grid::step() {
 	for (int j = size.y - 1; j >= 0; j--) {
 		for (int i = 0; i < size.x; i++) {
-			if (at(i, j).isActive && has(i, j + 1)) {
-				swap(at(i, j), at(i, j + 1));
+			if (at(i, j)->isActive && has(i, j + 1)) {
+				swap(*at(i, j), *at(i, j + 1));
 			}
 		}
 	}
 }
 
 bool Grid::paste(const Figure& figure, unsigned r, sf::Vector2u position) {
-	if (r > 3) throw std::out_of_range("Figure rotation out of range");
-	std::bitset<64> mask;
-	for (int i = 0; i<64; i++) {
-		mask.set(i, (i / 16) == r);
-	}
-
-	std::bitset<16> frame(((figure.blueprint & mask) >> 16 * r).to_ulong());
+	std::bitset<16> frame = figure.getFrame(r);
 
 	for (int i = 0; i < 16; i++) {
-		try {
-			if (at(i % 4 + position.x, i / 4 + position.y).type != Figure::EMPTY) return false;
-		}
-		catch (std::out_of_range) {
-			return false;
-		}
-	}
-
-	for (int i = 0; i < 16; i++) {
-		if (frame[15-i]) at((15-i) % 4 + position.x, i / 4 + position.y).type = figure.type;
+		if (frame[15-i]) at((15-i) % 4 + position.x, i / 4 + position.y)->type = figure.getType();
 	}
 
 	figurePos = position;

@@ -36,9 +36,18 @@ void GameManager::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 }
 
 void GameManager::update(sf::Window& window) {
-	if (keyboard->isKeyJustPressed(sf::Keyboard::Key::R)) {
+	if (keyboard->isKeyJustPressed(sf::Keyboard::Key::Up)) {
 		grid->rotate();
 	}
+	//if (keyboard->isKeyJustPressed(sf::Keyboard::Key::Down)) {
+	//	grid->move({ 0, 1 });
+	//}
+	//if (keyboard->isKeyJustPressed(sf::Keyboard::Key::Left)) {
+	//	grid->move({ -1, 0 });
+	//}
+	//if (keyboard->isKeyJustPressed(sf::Keyboard::Key::Right)) {
+	//	grid->move({ 1, 0 });
+	//}
 
 	if (buttons[3].isJustPressed(window)) window.close();
 	if (buttons[0].isJustPressed(window)) {

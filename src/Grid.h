@@ -10,10 +10,11 @@ public:
 	Grid(sf::Vector2u);
 	void update();
 	void step();
-	sf::Vector2u getFieldSize();
-	sf::Vector2u getSize();
+	sf::Vector2u getFieldSize() const;
+	sf::Vector2u getSize() const;
 	bool paste(const Figure& figure, unsigned rotation = 0, sf::Vector2u position = sf::Vector2u(0, 0));
 	bool rotate();
+	bool move(sf::Vector2i);
 
 	struct Cell
 	{
@@ -24,9 +25,10 @@ public:
 	};
 private:
 	void draw(sf::RenderTarget&, sf::RenderStates) const override;
-	Cell& at(unsigned x, unsigned y);
+	Cell* at(unsigned x, unsigned y);
 	void swap(Cell& a, Cell& b);
 	bool has(int x, int y) const;
+	bool allows(Figure, sf::Vector2u position, int rotation) const;
 
 	const sf::Vector2u size;
 	std::vector<Cell> cells;
@@ -34,5 +36,5 @@ private:
 
 	sf::Vector2u figurePos;
 	unsigned figureRot = 0;
-	const Figure* currFigure;
+	const Figure* currFigure = nullptr;
 };
