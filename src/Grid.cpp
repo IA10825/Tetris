@@ -48,13 +48,13 @@ void Grid::update() {
 			sprites[i].setTexture(TextureManager::Ref().get("block_3"));
 			break;
 		case Figure::Type::S:
-			sprites[i].setTexture(TextureManager::Ref().get("block_1"));
+			sprites[i].setTexture(TextureManager::Ref().get("block_4"));
 			break;
 		case Figure::Type::T:
 			sprites[i].setTexture(TextureManager::Ref().get("block_7"));
 			break;
 		case Figure::Type::Z:
-			sprites[i].setTexture(TextureManager::Ref().get("block_4"));
+			sprites[i].setTexture(TextureManager::Ref().get("block_1"));
 			break;
 		case Figure::Type::EMPTY:
 			sprites[i].setTexture(TextureManager::Ref().get("block_void"));
