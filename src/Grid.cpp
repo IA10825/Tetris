@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include <iostream>
 #include <bitset>
+#include "Preferences.h"
 
 Grid::Grid(sf::Vector2u size) : size(size), cells(size.x* size.y), Box({ 0,0 }, { 0, 0 }) {
 	sprites.reserve(size.x * size.y);
@@ -31,9 +32,6 @@ void Grid::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 void Grid::update() {
-	/*for (int i = 0; i < size.x * size.y; i++) {
-		sprites[i].setColor(cells[i].isActive ? sf::Color::Green : sf::Color::Red);
-	}*/
 	setSize({ size.x * 30.f + 4, size.y * 30.f + 4 });
 	Box::update();
 
@@ -61,10 +59,14 @@ void Grid::update() {
 			sprites[i].setTexture(TextureManager::Ref().get("block_1"));
 			break;
 		case Figure::Type::EMPTY:
-			sprites[i].setTexture(TextureManager::Ref().get("block_void"));
+			sprites[i].setTexture(Preferences::DISPLAY_VOID_CELLS ? TextureManager::Ref().get("placeholder") : TextureManager::Ref().get("block_void"));
 			break;
 		default:
 			sprites[i].setTexture(TextureManager::Ref().get("abort"));
+		}
+
+		if (Preferences::SHOW_ACTIVE_CELLS) {
+			sprites[i].setColor(cells[i].isActive ? sf::Color::Green : sf::Color::Red);
 		}
 	}
 }
