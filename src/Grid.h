@@ -26,9 +26,12 @@ public:
 private:
 	void draw(sf::RenderTarget&, sf::RenderStates) const override;
 	Cell* at(unsigned x, unsigned y);
+	const Cell* at(unsigned x, unsigned y) const;
+	Cell* fat(unsigned x, unsigned y);
+	const Cell* fat(unsigned x, unsigned y) const;
 	void swap(Cell& a, Cell& b);
 	bool has(int x, int y) const;
-	bool allows(Figure, sf::Vector2u position, int rotation) const;
+	bool allows(const Figure&, sf::Vector2u position, int rotation) const;
 
 	const sf::Vector2u size;
 	std::vector<Cell> cells;

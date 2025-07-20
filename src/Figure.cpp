@@ -18,5 +18,12 @@ std::bitset<16> Figure::getFrame(unsigned r) const {
 		mask.set(i, (i / 16) == (3 - r));
 	}
 
-	return std::bitset<16>(((blueprint & mask) >> 16 * (3-r)).to_ulong());
+	std::bitset<16> b1 = ((blueprint & mask) >> 16 * (3 - r)).to_ulong();
+	std::bitset<16> b2;
+
+	for (int i = 0; i < 16; i++) {
+		b2[i] = b1[15 - i];
+	}
+
+	return b2;
 }
