@@ -2,12 +2,13 @@
 #include <string>
 #include <map>
 #include <SFML/Graphics.hpp>
+#include "common/ExplicitSingleton.h"
 
-class TextureManager {
+class TextureManager : public ExplicitSingleton<TextureManager> {
 public:
-	static sf::Texture& get(std::string name);
-private:
+	sf::Texture& get(std::string name);
 	TextureManager();
+private:
 	std::map<std::string, sf::Texture*> textures;
 
 	TextureManager(const TextureManager&) = delete;

@@ -12,7 +12,7 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(main src/main.cpp "src/ui/Button.cpp" "src/ui/Button.h" "src/Grid.h" "src/Grid.cpp" "src/Figure.h"  "src/TextureManager.h" "src/TextureManager.cpp" "src/ui/Box.h" "src/ui/Box.cpp" "src/GameManager.h" "src/GameManager.cpp" "src/Figure.cpp" "src/Keyboard.h" "src/Keyboard.cpp")
+add_executable(main src/main.cpp "src/ui/Button.cpp" "src/ui/Button.h" "src/Grid.h" "src/Grid.cpp" "src/Figure.h"  "src/TextureManager.h" "src/TextureManager.cpp" "src/ui/Box.h" "src/ui/Box.cpp" "src/GameManager.h" "src/GameManager.cpp" "src/Figure.cpp" "src/Keyboard.h" "src/Keyboard.cpp" "src/common/ExplicitSingleton.h")
 
 add_custom_command(
     TARGET main PRE_BUILD

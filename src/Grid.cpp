@@ -7,7 +7,7 @@ Grid::Grid(sf::Vector2u size) : size(size), cells(size.x* size.y), Box({ 0,0 }, 
 	sprites.reserve(size.x * size.y);
 	for (int j = 0; j < size.y; j++) {
 		for (int i = 0; i < size.x; i++) {
-			sf::Sprite sprite(TextureManager::get("block_void"));
+			sf::Sprite sprite(TextureManager::Ref().get("block_void"));
 			sprite.setPosition({ i * 30.f+2, j * 30.f+2 });
 			sprite.setScale({ 2.f,2.f });
 			sprites.push_back(sprite);
@@ -36,31 +36,31 @@ void Grid::update() {
 	for (int i = 0; i < size.x * size.y; i++) {
 		switch (cells[i].type) {
 		case Figure::Type::I:
-			sprites[i].setTexture(TextureManager::get("block_6"));
+			sprites[i].setTexture(TextureManager::Ref().get("block_6"));
 			break;
 		case Figure::Type::J:
-			sprites[i].setTexture(TextureManager::get("block_5"));
+			sprites[i].setTexture(TextureManager::Ref().get("block_5"));
 			break;
 		case Figure::Type::L:
-			sprites[i].setTexture(TextureManager::get("block_2"));
+			sprites[i].setTexture(TextureManager::Ref().get("block_2"));
 			break;
 		case Figure::Type::O:
-			sprites[i].setTexture(TextureManager::get("block_3"));
+			sprites[i].setTexture(TextureManager::Ref().get("block_3"));
 			break;
 		case Figure::Type::S:
-			sprites[i].setTexture(TextureManager::get("block_1"));
+			sprites[i].setTexture(TextureManager::Ref().get("block_1"));
 			break;
 		case Figure::Type::T:
-			sprites[i].setTexture(TextureManager::get("block_7"));
+			sprites[i].setTexture(TextureManager::Ref().get("block_7"));
 			break;
 		case Figure::Type::Z:
-			sprites[i].setTexture(TextureManager::get("block_4"));
+			sprites[i].setTexture(TextureManager::Ref().get("block_4"));
 			break;
 		case Figure::Type::EMPTY:
-			sprites[i].setTexture(TextureManager::get("block_void"));
+			sprites[i].setTexture(TextureManager::Ref().get("block_void"));
 			break;
 		default:
-			sprites[i].setTexture(TextureManager::get("abort"));
+			sprites[i].setTexture(TextureManager::Ref().get("abort"));
 		}
 	}
 }

@@ -13,10 +13,10 @@ Figure* figures = new Figure[7]{
 };
 
 GameManager::GameManager() : size(380, 200) {
-	buttons.emplace_back(sf::Vector2f{ 0,0 }, sf::Vector2f{ 64,32 }, TextureManager::get("play"));
-	buttons.emplace_back(sf::Vector2f{ 0,0 }, sf::Vector2f{ 64,32 }, TextureManager::get("reset"));
-	buttons.emplace_back(sf::Vector2f{ 0,0 }, sf::Vector2f{ 64,32 }, TextureManager::get("volume_on"));
-	buttons.emplace_back(sf::Vector2f{ 0,0 }, sf::Vector2f{ 64,32 }, TextureManager::get("exit"));
+	buttons.emplace_back(sf::Vector2f{ 0,0 }, sf::Vector2f{ 64,32 }, TextureManager::Ref().get("play"));
+	buttons.emplace_back(sf::Vector2f{ 0,0 }, sf::Vector2f{ 64,32 }, TextureManager::Ref().get("reset"));
+	buttons.emplace_back(sf::Vector2f{ 0,0 }, sf::Vector2f{ 64,32 }, TextureManager::Ref().get("volume_on"));
+	buttons.emplace_back(sf::Vector2f{ 0,0 }, sf::Vector2f{ 64,32 }, TextureManager::Ref().get("exit"));
 
 	grid = new Grid({ 10,20 });
 	keyboard = new Keyboard();
@@ -52,7 +52,7 @@ void GameManager::update(sf::Window& window) {
 	if (buttons[3].isJustPressed(window)) window.close();
 	if (buttons[0].isJustPressed(window)) {
 		isPaused = !isPaused;
-		buttons[0].setTexture(isPaused ? TextureManager::get("pause") : TextureManager::get("play"));
+		buttons[0].setTexture(isPaused ? TextureManager::Ref().get("pause") : TextureManager::Ref().get("play"));
 	}
 
 	sf::Vector2f position({ window.getSize().x / 2.f - size.x / 2,window.getSize().y / 2.f - size.y / 2 });

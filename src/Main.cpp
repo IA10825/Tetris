@@ -4,6 +4,8 @@
 #include <ctime>
 #include "GameManager.h"
 
+
+
 int main()
 {
 	auto window = sf::RenderWindow(sf::VideoMode({ 540u, 640u }), "Tetris", sf::Style::Default, sf::State::Windowed);
