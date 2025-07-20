@@ -3,7 +3,7 @@
 #include <optional>
 #include <vector>
 #include "Figure.h"
-#include "Box.h"
+#include "ui/Box.h"
 
 class Grid : public Box {
 public:
