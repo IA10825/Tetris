@@ -27,10 +27,6 @@ int main()
 			{
 				window.setView({ {window.getSize().x / 2.f,window.getSize().y / 2.f},{window.getSize().x * 1.f,window.getSize().y * 1.f } });
 			}
-			if (event->is<sf::Event::MouseButtonPressed>())
-			{
-				std::cout << "Click";
-			}
 		}
 
 		manager.update(window);

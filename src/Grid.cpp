@@ -111,7 +111,7 @@ bool Grid::paste(const Figure& figure, unsigned r, sf::Vector2u position) {
 	std::bitset<16> frame = figure.getFrame(r);
 
 	for (int i = 0; i < 16; i++) {
-		if (frame[15-i]) at((15-i) % 4 + position.x, i / 4 + position.y)->type = figure.getType();
+		if (frame[i]) at((15 - i) % 4 + position.x, (15-i) / 4 + position.y)->type = figure.getType();
 	}
 
 	figurePos = position;
