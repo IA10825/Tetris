@@ -16,7 +16,6 @@ private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	std::vector<Button> buttons;
 	Grid* grid;
-	Keyboard* keyboard;
 
 	bool isPaused = false;
 };

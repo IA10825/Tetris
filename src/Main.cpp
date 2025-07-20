@@ -27,6 +27,7 @@ int main()
 			{
 				window.setView({ {window.getSize().x / 2.f,window.getSize().y / 2.f},{window.getSize().x * 1.f,window.getSize().y * 1.f } });
 			}
+			Keyboard::Ref().handleEvent(event.value());
 		}
 
 		manager.update(window);

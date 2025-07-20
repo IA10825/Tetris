@@ -19,7 +19,6 @@ GameManager::GameManager() : size(380, 200) {
 	buttons.emplace_back(sf::Vector2f{ 0,0 }, sf::Vector2f{ 64,32 }, TextureManager::Ref().get("exit"));
 
 	grid = new Grid({ 10,20 });
-	keyboard = new Keyboard();
 	size.y = grid->getSize().y;
 	grid->step();
 	grid->step();
@@ -36,16 +35,16 @@ void GameManager::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 }
 
 void GameManager::update(sf::Window& window) {
-	if (keyboard->isKeyJustPressed(sf::Keyboard::Key::Up)) {
+	if (Keyboard::Ref().isKeyJustPressed(sf::Keyboard::Key::Up)) {
 		grid->rotate();
 	}
-	//if (keyboard->isKeyJustPressed(sf::Keyboard::Key::Down)) {
+	//if (Keyboard::Ref().isKeyJustPressed(sf::Keyboard::Key::Down)) {
 	//	grid->move({ 0, 1 });
 	//}
-	//if (keyboard->isKeyJustPressed(sf::Keyboard::Key::Left)) {
+	//if (Keyboard::Ref().isKeyJustPressed(sf::Keyboard::Key::Left)) {
 	//	grid->move({ -1, 0 });
 	//}
-	//if (keyboard->isKeyJustPressed(sf::Keyboard::Key::Right)) {
+	//if (Keyboard::Ref().isKeyJustPressed(sf::Keyboard::Key::Right)) {
 	//	grid->move({ 1, 0 });
 	//}
 
@@ -59,7 +58,6 @@ void GameManager::update(sf::Window& window) {
 
 	grid->setPosition({ position.x + size.x - grid->getSize().x, position.y });
 	grid->update();
-	keyboard->update();
 
 	unsigned offset = 0;
 	for (int i = 0; i < buttons.size(); i++) {
