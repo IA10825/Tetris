@@ -147,12 +147,15 @@ bool Grid::paste(const Figure& figure, unsigned r, sf::Vector2u position) {
 bool Grid::rotate() {
 	if (!currFigure) return false;
 
-	figureRot++;
-	if (figureRot > 3) figureRot = 0;
-	if (!allows(*currFigure, figurePos, figureRot)) {
-		figureRot--;
+	auto r = figureRot;
+	r++;
+	if (r > 3) r = 0;
+
+	if (!allows(*currFigure, figurePos, r)) {
 		return false;
 	}
+
+	figureRot = r;
 
 	for (int i = 0; i < 16; i++) {
 		auto targetCell = fat(i / 4, i % 4);

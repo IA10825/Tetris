@@ -24,7 +24,7 @@ GameManager::GameManager() : size(380, 200) {
 	grid->step();
 	grid->step();
 	grid->step();
-	grid->paste(figures[2], 0, sf::Vector2u{3,0});
+	grid->paste(figures[6], 0, sf::Vector2u{3,0});
 }
 
 void GameManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -37,9 +37,6 @@ void GameManager::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 void GameManager::update(sf::Window& window) {
 	if (Keyboard::Ref().isKeyJustPressed(sf::Keyboard::Key::Up)) {
 		grid->rotate();
-	}
-	if (Keyboard::Ref().isKeyJustPressed(sf::Keyboard::Key::Down)) {
-		grid->move({ 0, 1 });
 	}
 	if (Keyboard::Ref().isKeyJustPressed(sf::Keyboard::Key::Left)) {
 		grid->move({ -1, 0 });
