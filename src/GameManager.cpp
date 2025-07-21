@@ -20,10 +20,6 @@ GameManager::GameManager() : size(380, 200) {
 
 	grid = new Grid({ 10,20 });
 	size.y = grid->getSize().y;
-	grid->step();
-	grid->step();
-	grid->step();
-	grid->step();
 	grid->paste(figures[6], 0, sf::Vector2u{3,0});
 }
 
@@ -43,6 +39,12 @@ void GameManager::update(sf::Window& window) {
 	}
 	if (Keyboard::Ref().isKeyJustPressed(sf::Keyboard::Key::Right)) {
 		grid->move({ 1, 0 });
+	}
+	if (Keyboard::Ref().isKeyJustPressed(sf::Keyboard::Key::F)) {
+		grid->step();
+		if (!grid->getCurrFigure()) {
+			grid->paste(figures[rand()%7], 0, {3, 0});
+		}
 	}
 
 	if (buttons[3].isJustPressed(window)) window.close();

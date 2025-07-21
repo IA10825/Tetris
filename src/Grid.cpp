@@ -59,7 +59,7 @@ void Grid::update() {
 			sprites[i].setTexture(TextureManager::Ref().get("block_1"));
 			break;
 		case Figure::Type::EMPTY:
-			sprites[i].setTexture(Preferences::DISPLAY_VOID_CELLS ? TextureManager::Ref().get("placeholder") : TextureManager::Ref().get("block_void"));
+			sprites[i].setTexture(Preferences::DISPLAY_VOID_CELLS ? TextureManager::Ref().get("void") : TextureManager::Ref().get("block_void"));
 			break;
 		default:
 			sprites[i].setTexture(TextureManager::Ref().get("abort"));
@@ -92,12 +92,6 @@ bool Grid::has(int x, int y) const {
 	return true;
 }
 
-void Grid::swap(Cell& a, Cell& b) {
-	Cell buffer = a;
-	a = b;
-	b = buffer;
-}
-
 Grid::Cell* Grid::at(unsigned x, unsigned y) {
 	if (x >= size.x || y >= size.y) return nullptr;
 	return &cells[size.x * y + x];
@@ -117,10 +111,29 @@ const Grid::Cell* Grid::fat(unsigned x, unsigned y) const {
 }
 
 void Grid::step() {
-	for (int j = size.y - 1; j >= 0; j--) {
-		for (int i = 0; i < size.x; i++) {
-			if (at(i, j)->isActive && has(i, j + 1)) {
-				swap(*at(i, j), *at(i, j + 1));
+	if (!move({ 0, 1 })) {
+		for (int i = 0; i < 16; i++) {
+			auto targetCell = fat(i % 4, i / 4);
+			if (targetCell && targetCell->type != Figure::EMPTY) {
+				targetCell->isActive = false;
+			}
+		}
+		currFigure = nullptr;
+
+		for (int j = size.y; j >= 0; j--) {
+			int q = 0;
+			for (int i = 0; i < size.x; i++) {
+				auto targetCell = at(i, j);
+				if (targetCell && targetCell->isActive == false && targetCell->type != Figure::EMPTY) q++;
+
+				if (q == size.x) {
+					for (int i = 0; i < size.x; i++) {
+						at(i, j)->type = Figure::EMPTY;
+					}
+					for (int k = j + 1; k >= 0; k--) {
+						
+					}
+				}
 			}
 		}
 	}
@@ -191,3 +204,6 @@ bool Grid::move(sf::Vector2i pos) {
 	return true;
 }
 
+const Figure* Grid::getCurrFigure() const {
+	return currFigure;
+}

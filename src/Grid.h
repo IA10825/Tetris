@@ -12,6 +12,7 @@ public:
 	void step();
 	sf::Vector2u getFieldSize() const;
 	sf::Vector2u getSize() const;
+	const Figure* getCurrFigure() const;
 	bool paste(const Figure& figure, unsigned rotation = 0, sf::Vector2u position = sf::Vector2u(0, 0));
 	bool rotate();
 	bool move(sf::Vector2i);
@@ -29,7 +30,6 @@ private:
 	const Cell* at(unsigned x, unsigned y) const;
 	Cell* fat(unsigned x, unsigned y);
 	const Cell* fat(unsigned x, unsigned y) const;
-	void swap(Cell& a, Cell& b);
 	bool has(int x, int y) const;
 	bool allows(const Figure&, sf::Vector2u position, int rotation) const;
 
